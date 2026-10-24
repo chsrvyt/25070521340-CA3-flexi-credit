@@ -1,3 +1,5 @@
+// Made by SARVESH CHONDE
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'

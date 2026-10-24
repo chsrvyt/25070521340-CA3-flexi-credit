@@ -1,6 +1,9 @@
+// Made by SARVESH CHONDE
+
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import API from './api';
+import { CATEGORIES } from './tasks';
 
 const TaskDetail = () => {
 
@@ -17,7 +20,7 @@ const TaskDetail = () => {
         if (!res.ok) throw new Error();
         return res.json();
       })
-      .then((data) => setTodo({ priority: "Medium", dueDate: "", notes: "", ...data }))
+      .then((data) => setTodo({ priority: "Medium", dueDate: "", notes: "", category: "Personal", ...data }))
       .catch(() => setNotFound(true));
   }, [id]);
 
@@ -37,6 +40,7 @@ const TaskDetail = () => {
         priority: todo.priority,
         dueDate: todo.dueDate,
         notes: todo.notes,
+        category: todo.category,
         done: todo.done
       })
     });
@@ -67,6 +71,11 @@ const TaskDetail = () => {
           <option>Low</option>
           <option>Medium</option>
           <option>High</option>
+        </select>
+
+        <label>Category</label>
+        <select value={todo.category} onChange={(e) => change("category", e.target.value)}>
+          {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
         </select>
 
         <label>Due date</label>

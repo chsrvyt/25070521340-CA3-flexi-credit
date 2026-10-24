@@ -1,3 +1,5 @@
+// Made by SARVESH CHONDE
+
 const express = require("express");
 const {MongoClient,ObjectId} = require("mongodb");
 const bodyparser = require("body-parser");
@@ -64,13 +66,14 @@ app.get("/get/:id",async(req,res)=>{
 
 app.post("/create",async(req,res)=>{
 
-    const {title,priority,dueDate,notes} = req.body;
+    const {title,priority,dueDate,notes,category} = req.body;
 
     const response = await myDb.collection("todos").insertOne({
         title : title,
         priority : priority || "Medium",
         dueDate : dueDate || "",
         notes : notes || "",
+        category : category || "Personal",
         done : false,
         createdAt : new Date()
     });
@@ -83,7 +86,7 @@ app.put("/update/:id",async(req,res)=>{
 
     const id = req.params.id;
 
-    const {title,done,priority,dueDate,notes} = req.body;
+    const {title,done,priority,dueDate,notes,category} = req.body;
 
     const changes = {};
     if( title !== undefined ) changes.title = title;
@@ -91,6 +94,7 @@ app.put("/update/:id",async(req,res)=>{
     if( priority !== undefined ) changes.priority = priority;
     if( dueDate !== undefined ) changes.dueDate = dueDate;
     if( notes !== undefined ) changes.notes = notes;
+    if( category !== undefined ) changes.category = category;
 
     const response = await myDb.collection("todos").updateOne({_id: new ObjectId(id)},{$set:changes});
 
@@ -103,6 +107,56 @@ app.delete("/delete/:id",async(req,res)=>{
     const id = req.params.id;
 
     const response = await myDb.collection("todos").deleteOne({_id:new ObjectId(id)});
+
+    res.send(response);
+
+});
+
+app.delete("/deleteCompleted",async(req,res)=>{
+
+    const response = await myDb.collection("todos").deleteMany({done : true});
+
+    res.send(response);
+
+});
+
+// ---------- notes ----------
+
+app.get("/notes",async(req,res)=>{
+
+    let data = await myDb.collection("notes").find().sort({createdAt : -1}).toArray();
+
+    res.send( data );
+
+});
+
+app.post("/notes",async(req,res)=>{
+
+    const {title,text} = req.body;
+
+    const response = await myDb.collection("notes").insertOne({title : title, text : text || "", createdAt : new Date()});
+
+    res.send(response);
+
+});
+
+app.put("/notes/:id",async(req,res)=>{
+
+    const id = req.params.id;
+
+    const {title,text} = req.body;
+
+    const response = await myDb.collection("notes").updateOne({_id: new ObjectId(id)},{$set:{title : title, text : text}});
+
+    res.send(response);
+
+});
+
+app.delete("/notes/:id",async(req,res)=>{
+
+    const id = req.params.id;
+
+    const response = await myDb.collection("notes").deleteOne({_id:new ObjectId(id)});
 
     res.send(response);
 

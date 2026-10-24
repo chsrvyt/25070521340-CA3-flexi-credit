@@ -1,3 +1,5 @@
+// Made by SARVESH CHONDE
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import API from './api';
@@ -21,6 +23,7 @@ const Dashboard = () => {
 
   const today = new Date().toISOString().slice(0, 10);
   const dueToday = todos.filter((todo) => !todo.done && todo.dueDate === today);
+  const overdue = todos.filter((todo) => !todo.done && todo.dueDate && todo.dueDate < today).length;
 
   return (
     <>
@@ -39,6 +42,8 @@ const Dashboard = () => {
         <div className="progress-fill" style={{ width: percent + "%" }}></div>
       </div>
 
+      {overdue > 0 && <p className="alert">⚠ You have {overdue} overdue task(s). <Link to="/upcoming">View</Link></p>}
+
       <h3>Due today</h3>
       {dueToday.length === 0 && <p className="empty">Nothing due today.</p>}
       <ul>
@@ -50,7 +55,10 @@ const Dashboard = () => {
         ))}
       </ul>
 
-      <Link to="/tasks"><button>Go to tasks →</button></Link>
+      <div className="row">
+        <Link to="/tasks"><button>Go to tasks →</button></Link>
+        <Link to="/notes"><button className="outline">Open notes</button></Link>
+      </div>
     </>
   )
 }

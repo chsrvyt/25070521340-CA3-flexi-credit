@@ -1,3 +1,5 @@
+// Made by SARVESH CHONDE
+
 const About = () => {
 
     return (
@@ -7,8 +9,11 @@ const About = () => {
 
             <h3>Features</h3>
             <ul className="plain">
-                <li>Add tasks with priority and due date</li>
-                <li>Filter and search tasks</li>
+                <li>Add tasks with category, priority and due date</li>
+                <li>Filter, search and sort tasks</li>
+                <li>Upcoming view grouped by due date</li>
+                <li>Categories with progress</li>
+                <li>Notes you can add, edit and delete</li>
                 <li>Edit task details and notes</li>
                 <li>Dashboard with progress</li>
                 <li>Contact form saved to the database</li>
@@ -20,6 +25,9 @@ const About = () => {
                 <li>Server — Node.js (Express)</li>
                 <li>Database — MongoDB</li>
             </ul>
+
+            <h3>Developer</h3>
+            <p>Made by <b>SARVESH CHONDE</b></p>
         </>
     )
 }
