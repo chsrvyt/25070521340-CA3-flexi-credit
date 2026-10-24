@@ -1,0 +1,331 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #fff;
+  color: #000;
+}
+
+a{
+  color: #000;
+}
+
+/* nav */
+.my-nav{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 24px;
+  background: #000;
+}
+
+.my-nav .logo{
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-right: auto;
+}
+
+.my-nav a{
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+}
+
+.my-nav a:hover{
+  border-color: #fff;
+}
+
+.my-nav a.active{
+  background: #fff;
+  color: #000;
+}
+
+/* page */
+.page{
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 32px;
+  border: 2px solid #000;
+  min-height: 60vh;
+}
+
+h1{
+  margin: 0 0 4px;
+  font-size: 30px;
+}
+
+h3{
+  margin: 28px 0 10px;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+
+.muted{
+  color: #666;
+  margin: 0 0 20px;
+}
+
+small.muted{
+  margin: 0;
+}
+
+.footer{
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  padding-bottom: 30px;
+}
+
+/* inputs and buttons */
+input, textarea, select{
+  padding: 10px 12px;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus{
+  outline: 2px solid #000;
+}
+
+input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+  accent-color: #000;
+  cursor: pointer;
+}
+
+button{
+  padding: 9px 16px;
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover{
+  background: #333;
+}
+
+button.outline{
+  background: #fff;
+  color: #000;
+}
+
+button.outline:hover{
+  background: #000;
+  color: #fff;
+}
+
+.grow{
+  flex: 1;
+}
+
+.row{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* dashboard */
+.stats{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat{
+  border: 1px solid #000;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat b{
+  display: block;
+  font-size: 32px;
+}
+
+.stat span{
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.stat:first-child{
+  background: #000;
+  color: #fff;
+}
+
+.stat:first-child span{
+  color: #ccc;
+}
+
+.progress{
+  height: 14px;
+  border: 1px solid #000;
+}
+
+.progress-fill{
+  height: 100%;
+  background: #000;
+  transition: width 0.4s;
+}
+
+/* tasks */
+.add-form{
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.toolbar{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tabs{
+  display: flex;
+}
+
+.tabs button{
+  margin-right: -1px;
+}
+
+ul{
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+li{
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-link{
+  flex: 1;
+  text-decoration: none;
+}
+
+.task-link:hover{
+  text-decoration: underline;
+}
+
+.done{
+  text-decoration: line-through;
+  color: #999;
+}
+
+.badge{
+  font-size: 11px;
+  padding: 3px 8px;
+  border: 1px solid #000;
+  text-transform: uppercase;
+}
+
+.badge.High{
+  background: #000;
+  color: #fff;
+}
+
+.badge.Low{
+  border-style: dashed;
+  color: #666;
+}
+
+ul.plain li{
+  display: list-item;
+  list-style: square inside;
+  border: none;
+  padding: 4px 0;
+}
+
+.empty{
+  text-align: center;
+  color: #888;
+  padding: 24px 0;
+}
+
+/* task detail */
+.back{
+  display: inline-block;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
+.stack-form, .contact-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stack-form label{
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+
+.stack-form label.check{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: none;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+/* messages */
+.message{
+  border: 1px solid #000;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.message p{
+  margin: 10px 0 0;
+}
+
+.status{
+  font-weight: bold;
+}
+
+@media (max-width: 700px){
+  .page{
+    margin: 16px;
+    padding: 20px;
+  }
+
+  .my-nav{
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  .my-nav .logo{
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .stats{
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .add-form, .toolbar{
+    flex-wrap: wrap;
+  }
+}
