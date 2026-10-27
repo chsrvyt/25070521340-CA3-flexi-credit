@@ -155,27 +155,48 @@ input[type="checkbox"]{
   cursor: pointer;
 }
 
-button{
+button, a.button{
   padding: 9px 16px;
   border: 1px solid #000;
   background: #000;
   color: #fff;
   font-size: 14px;
+  font-family: inherit;
   cursor: pointer;
 }
 
-button:hover{
+/* links that look like buttons */
+a.button{
+  display: inline-block;
+  text-decoration: none;
+}
+
+button:hover, a.button:hover{
   background: #333;
 }
 
-button.outline{
+button.outline, a.button.outline{
   background: #fff;
   color: #000;
 }
 
-button.outline:hover{
+button.outline:hover, a.button.outline:hover{
   background: #000;
   color: #fff;
+}
+
+button:disabled{
+  opacity: 0.5;
+  cursor: default;
+}
+
+button:focus-visible, a:focus-visible{
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.sidebar a:focus-visible{
+  outline-color: #fff;
 }
 
 .grow{
@@ -472,6 +493,27 @@ ul.plain li{
   }
 
   .add-form, .toolbar{
+    flex-wrap: wrap;
+  }
+
+  /* task rows: title on its own line, the rest wraps underneath */
+  li{
+    flex-wrap: wrap;
+  }
+
+  li input[type="checkbox"] + .task-link{
+    flex-basis: calc(100% - 40px);
+  }
+
+  li button{
+    margin-left: auto;
+  }
+
+  li small{
+    white-space: nowrap;
+  }
+
+  .message .row{
     flex-wrap: wrap;
   }
 }
