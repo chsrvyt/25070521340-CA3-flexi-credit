@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { request, todayString } from './api';
+import { useAuth } from './auth';
 
 const Dashboard = () => {
 
+  const { user } = useAuth();
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState("");
 
@@ -28,7 +30,7 @@ const Dashboard = () => {
   return (
     <>
       <h1>Dashboard</h1>
-      <p className="muted">{new Date().toDateString()}</p>
+      <p className="muted">Hi {user.name} · {new Date().toDateString()}</p>
 
       {error && <p className="alert">{error}</p>}
 

@@ -75,12 +75,43 @@ a{
   font-weight: 600;
 }
 
+.side-user{
+  margin-top: auto;
+  padding: 16px 12px;
+  border-top: 1px solid #333;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.side-user b{
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  margin: 2px 0 10px;
+  overflow-wrap: anywhere;
+}
+
+.side-user button{
+  width: 100%;
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.side-user button:hover{
+  background: #ccc;
+}
+
 .side-footer{
   margin-top: auto;
   font-size: 12px;
   color: #aaa;
   padding: 16px 12px 0;
   border-top: 1px solid #333;
+}
+
+.side-user + .side-footer{
+  margin-top: 0;
 }
 
 .side-footer b{
@@ -433,6 +464,11 @@ ul.plain li{
   letter-spacing: 0;
 }
 
+/* login and sign up */
+.auth{
+  max-width: 420px;
+}
+
 /* messages */
 .message{
   border: 1px solid #000;
@@ -475,7 +511,16 @@ ul.plain li{
     padding: 6px 10px;
   }
 
-  .side-footer{
+  .side-user{
+    margin-top: 12px;
+    padding: 10px 12px 0;
+  }
+
+  .side-user button{
+    width: auto;
+  }
+
+  .side-footer, .side-user + .side-footer{
     margin-top: 12px;
     padding-top: 10px;
   }
