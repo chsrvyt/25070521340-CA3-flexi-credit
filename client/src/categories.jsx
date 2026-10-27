@@ -2,24 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import API from './api';
+import { request } from './api';
 import { CATEGORIES } from './tasks';
 
 const Categories = () => {
 
   const [todos, setTodos] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(API + "/getall")
-      .then((res) => res.json())
+    request("/getall")
       .then((data) => setTodos(data))
-      .catch(() => setTodos([]));
+      .catch((err) => setError(err.message));
   }, []);
 
   return (
     <>
       <h1>Categories</h1>
       <p className="muted">Click a category to see its tasks</p>
+
+      {error && <p className="alert">{error}</p>}
 
       <div className="cat-grid">
         {CATEGORIES.map((c) => {

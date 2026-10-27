@@ -9,6 +9,7 @@ const About = () => {
 
             <h3>Features</h3>
             <ul className="plain">
+                <li>Sign up and log in, every user has their own tasks and notes</li>
                 <li>Add tasks with category, priority and due date</li>
                 <li>Filter, search and sort tasks</li>
                 <li>Upcoming view grouped by due date</li>

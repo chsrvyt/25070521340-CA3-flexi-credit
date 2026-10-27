@@ -1,7 +1,7 @@
 // Made by SARVESH CHONDE
 
 import { useState } from 'react';
-import API from './api';
+import { request } from './api';
 
 const Contact = () => {
 
@@ -9,6 +9,7 @@ const Contact = () => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [status, setStatus] = useState("");
+    const [sending, setSending] = useState(false);
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -17,16 +18,20 @@ const Contact = () => {
             return;
         }
 
-        await fetch(API + "/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name: name, email: email, message: message })
-        });
+        setSending(true);
 
-        setName("");
-        setEmail("");
-        setMessage("");
-        setStatus("Message sent!");
+        try {
+            await request("/contact", "POST", { name: name, email: email, message: message });
+
+            setName("");
+            setEmail("");
+            setMessage("");
+            setStatus("Message sent!");
+        } catch (err) {
+            setStatus(err.message);
+        }
+
+        setSending(false);
     }
 
     return (
@@ -35,13 +40,13 @@ const Contact = () => {
             <p className="muted">Send us a message.</p>
 
             <form className="contact-form" onSubmit={sendMessage}>
-                <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message" rows="4" />
-                <button type="submit">Send</button>
+                <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" aria-label="Name" />
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" aria-label="Email" />
+                <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message" rows="4" aria-label="Message" />
+                <button type="submit" disabled={sending}>{sending ? "Sending..." : "Send"}</button>
             </form>
 
-            <p className="status">{status}</p>
+            <p className="status" role="status">{status}</p>
         </>
     )
 }

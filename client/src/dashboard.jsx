@@ -2,17 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import API from './api';
+import { request, todayString } from './api';
+import { useAuth } from './auth';
 
 const Dashboard = () => {
 
+  const { user } = useAuth();
   const [todos, setTodos] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(API + "/getall")
-      .then((res) => res.json())
+    request("/getall")
       .then((data) => setTodos(data))
-      .catch(() => setTodos([]));
+      .catch((err) => setError(err.message));
   }, []);
 
   const total = todos.length;
@@ -21,14 +23,16 @@ const Dashboard = () => {
   const high = todos.filter((todo) => !todo.done && todo.priority === "High").length;
   const percent = total === 0 ? 0 : Math.round((done / total) * 100);
 
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayString();
   const dueToday = todos.filter((todo) => !todo.done && todo.dueDate === today);
   const overdue = todos.filter((todo) => !todo.done && todo.dueDate && todo.dueDate < today).length;
 
   return (
     <>
       <h1>Dashboard</h1>
-      <p className="muted">{new Date().toDateString()}</p>
+      <p className="muted">Hi {user.name} · {new Date().toDateString()}</p>
+
+      {error && <p className="alert">{error}</p>}
 
       <div className="stats">
         <div className="stat"><b>{total}</b><span>Total</span></div>
@@ -38,7 +42,7 @@ const Dashboard = () => {
       </div>
 
       <h3>Progress — {percent}%</h3>
-      <div className="progress">
+      <div className="progress" role="progressbar" aria-valuenow={percent} aria-valuemin="0" aria-valuemax="100" aria-label="Tasks done">
         <div className="progress-fill" style={{ width: percent + "%" }}></div>
       </div>
 
@@ -56,8 +60,8 @@ const Dashboard = () => {
       </ul>
 
       <div className="row">
-        <Link to="/tasks"><button>Go to tasks →</button></Link>
-        <Link to="/notes"><button className="outline">Open notes</button></Link>
+        <Link to="/tasks" className="button">Go to tasks →</Link>
+        <Link to="/notes" className="button outline">Open notes</Link>
       </div>
     </>
   )

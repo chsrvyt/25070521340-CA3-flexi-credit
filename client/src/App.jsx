@@ -1,6 +1,7 @@
 // Made by SARVESH CHONDE
 
 import { Routes, Route } from 'react-router-dom';
+import { RequireLogin } from './auth';
 import Nav from './nav';
 import Dashboard from './dashboard';
 import Tasks from './tasks';
@@ -11,6 +12,8 @@ import Notes from './notes';
 import Messages from './messages';
 import About from './about';
 import Contact from './contact';
+import Login from './login';
+import Signup from './signup';
 import NotFound from './notFound';
 import './App.css';
 
@@ -23,15 +26,22 @@ const App = () => {
       <main className="main">
         <div className="page">
           <Routes>
-            <Route path="/" element={<Dashboard/>}></Route>
-            <Route path="/tasks" element={<Tasks/>}></Route>
-            <Route path="/task/:id" element={<TaskDetail/>}></Route>
-            <Route path="/upcoming" element={<Upcoming/>}></Route>
-            <Route path="/categories" element={<Categories/>}></Route>
-            <Route path="/notes" element={<Notes/>}></Route>
-            <Route path="/messages" element={<Messages/>}></Route>
+            {/* pages that need a login */}
+            <Route element={<RequireLogin/>}>
+              <Route path="/" element={<Dashboard/>}></Route>
+              <Route path="/tasks" element={<Tasks/>}></Route>
+              <Route path="/task/:id" element={<TaskDetail/>}></Route>
+              <Route path="/upcoming" element={<Upcoming/>}></Route>
+              <Route path="/categories" element={<Categories/>}></Route>
+              <Route path="/notes" element={<Notes/>}></Route>
+              <Route path="/messages" element={<Messages/>}></Route>
+            </Route>
+
+            {/* pages anyone can see */}
             <Route path="/about" element={<About/>}></Route>
             <Route path="/contact" element={<Contact/>}></Route>
+            <Route path="/login" element={<Login/>}></Route>
+            <Route path="/signup" element={<Signup/>}></Route>
             <Route path="*" element={<NotFound/>}></Route>
           </Routes>
         </div>

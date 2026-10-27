@@ -75,12 +75,43 @@ a{
   font-weight: 600;
 }
 
+.side-user{
+  margin-top: auto;
+  padding: 16px 12px;
+  border-top: 1px solid #333;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.side-user b{
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  margin: 2px 0 10px;
+  overflow-wrap: anywhere;
+}
+
+.side-user button{
+  width: 100%;
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.side-user button:hover{
+  background: #ccc;
+}
+
 .side-footer{
   margin-top: auto;
   font-size: 12px;
   color: #aaa;
   padding: 16px 12px 0;
   border-top: 1px solid #333;
+}
+
+.side-user + .side-footer{
+  margin-top: 0;
 }
 
 .side-footer b{
@@ -155,27 +186,48 @@ input[type="checkbox"]{
   cursor: pointer;
 }
 
-button{
+button, a.button{
   padding: 9px 16px;
   border: 1px solid #000;
   background: #000;
   color: #fff;
   font-size: 14px;
+  font-family: inherit;
   cursor: pointer;
 }
 
-button:hover{
+/* links that look like buttons */
+a.button{
+  display: inline-block;
+  text-decoration: none;
+}
+
+button:hover, a.button:hover{
   background: #333;
 }
 
-button.outline{
+button.outline, a.button.outline{
   background: #fff;
   color: #000;
 }
 
-button.outline:hover{
+button.outline:hover, a.button.outline:hover{
   background: #000;
   color: #fff;
+}
+
+button:disabled{
+  opacity: 0.5;
+  cursor: default;
+}
+
+button:focus-visible, a:focus-visible{
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.sidebar a:focus-visible{
+  outline-color: #fff;
 }
 
 .grow{
@@ -412,6 +464,11 @@ ul.plain li{
   letter-spacing: 0;
 }
 
+/* login and sign up */
+.auth{
+  max-width: 420px;
+}
+
 /* messages */
 .message{
   border: 1px solid #000;
@@ -454,7 +511,16 @@ ul.plain li{
     padding: 6px 10px;
   }
 
-  .side-footer{
+  .side-user{
+    margin-top: 12px;
+    padding: 10px 12px 0;
+  }
+
+  .side-user button{
+    width: auto;
+  }
+
+  .side-footer, .side-user + .side-footer{
     margin-top: 12px;
     padding-top: 10px;
   }
@@ -472,6 +538,27 @@ ul.plain li{
   }
 
   .add-form, .toolbar{
+    flex-wrap: wrap;
+  }
+
+  /* task rows: title on its own line, the rest wraps underneath */
+  li{
+    flex-wrap: wrap;
+  }
+
+  li input[type="checkbox"] + .task-link{
+    flex-basis: calc(100% - 40px);
+  }
+
+  li button{
+    margin-left: auto;
+  }
+
+  li small{
+    white-space: nowrap;
+  }
+
+  .message .row{
     flex-wrap: wrap;
   }
 }

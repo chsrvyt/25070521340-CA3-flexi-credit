@@ -2,25 +2,25 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import API from './api';
+import { request, todayString } from './api';
 
 const Upcoming = () => {
 
   const [todos, setTodos] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(API + "/getall")
-      .then((res) => res.json())
+    request("/getall")
       .then((data) => setTodos(data.filter((todo) => !todo.done)))
-      .catch(() => setTodos([]));
+      .catch((err) => setError(err.message));
   }, []);
 
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayString();
 
   const groups = [
     { name: "Overdue", list: todos.filter((todo) => todo.dueDate && todo.dueDate < today) },
     { name: "Today", list: todos.filter((todo) => todo.dueDate === today) },
-    { name: "Upcoming", list: todos.filter((todo) => todo.dueDate > today).sort((a, b) => a.dueDate > b.dueDate ? 1 : -1) },
+    { name: "Upcoming", list: todos.filter((todo) => todo.dueDate > today).sort((a, b) => a.dueDate.localeCompare(b.dueDate)) },
     { name: "No due date", list: todos.filter((todo) => !todo.dueDate) }
   ];
 
@@ -28,6 +28,8 @@ const Upcoming = () => {
     <>
       <h1>Upcoming</h1>
       <p className="muted">Pending tasks by due date</p>
+
+      {error && <p className="alert">{error}</p>}
 
       {groups.map((group) => (
         <div key={group.name}>
