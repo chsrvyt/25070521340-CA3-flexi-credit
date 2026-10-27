@@ -6,6 +6,8 @@ A full-stack to do list app made by **SARVESH CHONDE**.
 - **server** – Node.js (Express) REST API
 - **database** – MongoDB (any MongoDB you can open in MongoDB Compass, db `todoDb` by default)
 
+![Dashboard](docs/screenshots/dashboard.png)
+
 ## Features
 
 - Sign up and log in; every user only sees their own tasks and notes
@@ -17,6 +19,36 @@ A full-stack to do list app made by **SARVESH CHONDE**.
 - Categories page with per-category progress
 - Notes you can add, edit and delete
 - Contact form anyone can use; logged in users can read the messages on the Messages page
+- Works on phones: the sidebar becomes a top menu and task rows wrap
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" valign="top" width="50%"><b>Log in</b><br><br><img src="docs/screenshots/login.png" alt="Log in page"></td>
+    <td align="center" valign="top" width="50%"><b>Sign up</b><br><br><img src="docs/screenshots/signup.png" alt="Sign up page"></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><b>Tasks</b> – add, filter, search, sort and tick off tasks<br><br><img src="docs/screenshots/tasks.png" alt="Tasks page"></td>
+    <td align="center" valign="top"><b>Edit task</b> – priority, category, due date and notes<br><br><img src="docs/screenshots/task-detail.png" alt="Edit task page"></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><b>Upcoming</b> – pending tasks grouped by due date<br><br><img src="docs/screenshots/upcoming.png" alt="Upcoming page"></td>
+    <td align="center" valign="top"><b>Categories</b> – progress per category<br><br><img src="docs/screenshots/categories.png" alt="Categories page"></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><b>Notes</b><br><br><img src="docs/screenshots/notes.png" alt="Notes page"></td>
+    <td align="center" valign="top"><b>Messages</b> – sent from the contact page<br><br><img src="docs/screenshots/messages.png" alt="Messages page"></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><b>Contact</b><br><br><img src="docs/screenshots/contact.png" alt="Contact page"></td>
+    <td align="center" valign="top"><b>About</b><br><br><img src="docs/screenshots/about.png" alt="About page"></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><b>Phone – dashboard</b><br><br><img src="docs/screenshots/mobile-dashboard.png" alt="Dashboard on a phone" width="300"></td>
+    <td align="center" valign="top"><b>Phone – tasks</b><br><br><img src="docs/screenshots/mobile-tasks.png" alt="Tasks on a phone" width="300"></td>
+  </tr>
+</table>
 
 ## Prerequisites
 
@@ -109,7 +141,9 @@ All request and response bodies are JSON. Errors come back as `{ "msg": "..." }`
 
 `priority` is one of `Low`, `Medium`, `High`, and `category` is one of `Personal`, `Work`, `Study`, `Shopping`, `Other`.
 
-## Screenshots
+## Development evidence
+
+Screenshots taken while building the app (first version, before login was added).
 
 <img width="658" height="406" alt="image" src="https://github.com/user-attachments/assets/60a0cdb3-9396-4806-aafa-fec6e1a0a320" />
 <img width="392" height="200" alt="image" src="https://github.com/user-attachments/assets/1e63198e-1109-4d7b-99c9-4c100f7d21bb" />
