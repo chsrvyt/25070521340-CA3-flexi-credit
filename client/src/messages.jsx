@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { request } from './api';
+import Icon from './icons';
 
 const Messages = () => {
 
@@ -41,13 +42,16 @@ const Messages = () => {
 
       {messages.map((msg) => (
         <div className="message" key={msg._id}>
-          <div className="row">
-            <b>{msg.name}</b>
-            <small className="muted grow">{msg.email}</small>
-            {msg.createdAt && <small className="muted">{new Date(msg.createdAt).toLocaleString()}</small>}
-            <button className="outline" onClick={() => deleteMessage(msg._id)} aria-label={"Delete message from " + msg.name} title="Delete">✕</button>
+          <span className="avatar">{(msg.name || "?").charAt(0).toUpperCase()}</span>
+          <div className="message-body">
+            <div className="row">
+              <b>{msg.name}</b>
+              <small className="muted grow">{msg.email}</small>
+              {msg.createdAt && <small className="muted">{new Date(msg.createdAt).toLocaleString()}</small>}
+              <button className="icon-btn" onClick={() => deleteMessage(msg._id)} aria-label={"Delete message from " + msg.name} title="Delete"><Icon name="trash" size={16} /></button>
+            </div>
+            <p>{msg.message}</p>
           </div>
-          <p>{msg.message}</p>
         </div>
       ))}
 

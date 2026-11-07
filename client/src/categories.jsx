@@ -30,7 +30,7 @@ const Categories = () => {
           const percent = list.length === 0 ? 0 : Math.round((done / list.length) * 100);
 
           return (
-            <Link to={"/tasks?category=" + c} className="cat-card" key={c}>
+            <Link to={"/tasks?category=" + c} className={"cat-card " + c} key={c}>
               <b>{c}</b>
               <span>{list.length} task(s) · {done} done</span>
               <div className="progress">

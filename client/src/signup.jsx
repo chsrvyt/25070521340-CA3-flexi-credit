@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './auth';
+import Icon from './icons';
 
 const Signup = () => {
 
@@ -45,7 +46,8 @@ const Signup = () => {
 
   return (
     <div className="auth">
-      <h1>Sign up</h1>
+      <div className="auth-icon"><Icon name="signup" size={22} /></div>
+      <h1>Create your account</h1>
       <p className="muted">Create an account to keep your own tasks and notes.</p>
 
       <form className="stack-form" onSubmit={submit}>
@@ -61,13 +63,11 @@ const Signup = () => {
         <label htmlFor="confirm">Confirm password</label>
         <input id="confirm" type="password" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
 
-        <div className="row">
-          <button type="submit" disabled={sending}>{sending ? "Creating account..." : "Sign up"}</button>
-          <span className="status" role="status">{status}</span>
-        </div>
+        {status && <p className="alert" role="alert">{status}</p>}
+        <button type="submit" disabled={sending}>{sending ? "Creating account..." : "Sign up"}</button>
       </form>
 
-      <p>Already have an account? <Link to="/login" state={location.state}>Log in</Link></p>
+      <p className="switch">Already have an account? <Link to="/login" state={location.state}>Log in</Link></p>
     </div>
   )
 }

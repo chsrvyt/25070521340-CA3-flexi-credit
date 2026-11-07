@@ -1,12 +1,31 @@
-# To Do List App
+<div align="center">
 
-A full-stack to do list app made by **SARVESH CHONDE**.
+# ✓ To Do List App
 
-- **client** – React (Vite) with React Router
-- **server** – Node.js (Express) REST API
-- **database** – MongoDB (any MongoDB you can open in MongoDB Compass, db `todoDb` by default)
+**A full-stack to do list app with accounts, categories, due dates and notes.**
+
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20.19%2B-339933?logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Compass%20ready-47A248?logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT%20%2B%20bcrypt-4F46E5)
+
+Made by **SARVESH CHONDE**
+
+[Features](#features) · [Screenshots](#screenshots) · [Setup](#prerequisites) · [API](#api) · [Project structure](#project-structure)
+
+</div>
 
 ![Dashboard](docs/screenshots/dashboard.png)
+
+## Tech stack
+
+| Part | Built with |
+| --- | --- |
+| **client** | React (Vite) with React Router, plain CSS, Inter font |
+| **server** | Node.js (Express) REST API, JWT logins, bcrypt password hashing |
+| **database** | MongoDB (any MongoDB you can open in MongoDB Compass, db `todoDb` by default) |
 
 ## Features
 
@@ -19,6 +38,7 @@ A full-stack to do list app made by **SARVESH CHONDE**.
 - Categories page with per-category progress
 - Notes you can add, edit and delete
 - Contact form anyone can use; logged in users can read the messages on the Messages page
+- Colour-coded priorities (High / Medium / Low) and categories
 - Works on phones: the sidebar becomes a top menu and task rows wrap
 
 ## Screenshots
@@ -140,6 +160,25 @@ All request and response bodies are JSON. Errors come back as `{ "msg": "..." }`
 | DELETE | `/messages/:id` 🔒 | Delete a message |
 
 `priority` is one of `Low`, `Medium`, `High`, and `category` is one of `Personal`, `Work`, `Study`, `Shopping`, `Other`.
+
+## Project structure
+
+```
+├── client/                  React app (Vite)
+│   ├── index.html
+│   └── src/
+│       ├── main.jsx         starts the app
+│       ├── App.jsx          page routes (which ones need a login)
+│       ├── auth.jsx         login state, log in / sign up / log out
+│       ├── api.js           request helper and date helpers
+│       ├── icons.jsx        line icons
+│       ├── App.css          all the styles
+│       └── *.jsx            one file per page (dashboard, tasks, notes, ...)
+├── server/                  Express API
+│   ├── server.js            routes, login checks, MongoDB queries
+│   └── .env.example         settings to copy into .env
+└── docs/screenshots/        the images in this README
+```
 
 ## Development evidence
 
