@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { request } from './api';
+import Icon from './icons';
 
 const Contact = () => {
 
@@ -43,7 +44,7 @@ const Contact = () => {
                 <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" aria-label="Name" />
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" aria-label="Email" />
                 <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Message" rows="4" aria-label="Message" />
-                <button type="submit" disabled={sending}>{sending ? "Sending..." : "Send"}</button>
+                <button type="submit" disabled={sending}><Icon name="send" size={16} />{sending ? "Sending..." : "Send message"}</button>
             </form>
 
             <p className="status" role="status">{status}</p>

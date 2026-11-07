@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './auth';
+import Icon from './icons';
 
 const Login = () => {
 
@@ -36,6 +37,7 @@ const Login = () => {
 
   return (
     <div className="auth">
+      <div className="auth-icon"><Icon name="login" size={22} /></div>
       <h1>Log in</h1>
       <p className="muted">Welcome back! Log in to see your tasks.</p>
 
@@ -46,13 +48,11 @@ const Login = () => {
         <label htmlFor="password">Password</label>
         <input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-        <div className="row">
-          <button type="submit" disabled={sending}>{sending ? "Logging in..." : "Log in"}</button>
-          <span className="status" role="status">{status}</span>
-        </div>
+        {status && <p className="alert" role="alert">{status}</p>}
+        <button type="submit" disabled={sending}>{sending ? "Logging in..." : "Log in"}</button>
       </form>
 
-      <p>Don't have an account? <Link to="/signup" state={location.state}>Sign up</Link></p>
+      <p className="switch">Don't have an account? <Link to="/signup" state={location.state}>Sign up</Link></p>
     </div>
   )
 }

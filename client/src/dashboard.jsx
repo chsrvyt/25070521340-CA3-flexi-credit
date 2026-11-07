@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { request, todayString } from './api';
 import { useAuth } from './auth';
+import Icon from './icons';
 
 const Dashboard = () => {
 
@@ -35,10 +36,10 @@ const Dashboard = () => {
       {error && <p className="alert">{error}</p>}
 
       <div className="stats">
-        <div className="stat"><b>{total}</b><span>Total</span></div>
-        <div className="stat"><b>{pending}</b><span>Pending</span></div>
-        <div className="stat"><b>{done}</b><span>Done</span></div>
-        <div className="stat"><b>{high}</b><span>High priority</span></div>
+        <div className="stat"><Icon name="list" /><b>{total}</b><span>Total</span></div>
+        <div className="stat stat-pending"><Icon name="clock" /><b>{pending}</b><span>Pending</span></div>
+        <div className="stat stat-done"><Icon name="checkCircle" /><b>{done}</b><span>Done</span></div>
+        <div className="stat stat-high"><Icon name="flag" /><b>{high}</b><span>High priority</span></div>
       </div>
 
       <h3>Progress — {percent}%</h3>
@@ -46,7 +47,7 @@ const Dashboard = () => {
         <div className="progress-fill" style={{ width: percent + "%" }}></div>
       </div>
 
-      {overdue > 0 && <p className="alert">⚠ You have {overdue} overdue task(s). <Link to="/upcoming">View</Link></p>}
+      {overdue > 0 && <p className="alert warning"><Icon name="alert" />You have {overdue} overdue task(s). <Link to="/upcoming">View →</Link></p>}
 
       <h3>Due today</h3>
       {dueToday.length === 0 && <p className="empty">Nothing due today.</p>}
@@ -54,14 +55,15 @@ const Dashboard = () => {
         {dueToday.map((todo) => (
           <li key={todo._id}>
             <Link to={"/task/" + todo._id} className="task-link">{todo.title}</Link>
+            <small className={"tag " + (todo.category || "Personal")}>{todo.category || "Personal"}</small>
             <span className={"badge " + todo.priority}>{todo.priority}</span>
           </li>
         ))}
       </ul>
 
       <div className="row">
-        <Link to="/tasks" className="button">Go to tasks →</Link>
-        <Link to="/notes" className="button outline">Open notes</Link>
+        <Link to="/tasks" className="button">Go to tasks <Icon name="arrow" size={16} /></Link>
+        <Link to="/notes" className="button outline"><Icon name="notes" size={16} />Open notes</Link>
       </div>
     </>
   )

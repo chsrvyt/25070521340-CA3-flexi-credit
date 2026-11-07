@@ -45,4 +45,15 @@ export const todayString = () => {
   return now.getFullYear() + "-" + month + "-" + day;
 }
 
+// "2026-11-07" -> "Nov 7" (with the year when it is not this year)
+export const formatDate = (value) => {
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  if (isNaN(date)) return value;
+
+  const options = { month: "short", day: "numeric" };
+  if (year !== new Date().getFullYear()) options.year = "numeric";
+  return date.toLocaleDateString(undefined, options);
+}
+
 export default API;

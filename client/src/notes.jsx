@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { request } from './api';
+import Icon from './icons';
 
 const Notes = () => {
 
@@ -78,7 +79,7 @@ const Notes = () => {
         <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Note title" aria-label="Note title" />
         <textarea rows="3" value={text} onChange={(e) => setText(e.target.value)} placeholder="Write something..." aria-label="Note text" />
         <div className="row">
-          <button type="submit">{editId ? "Update note" : "Add note"}</button>
+          <button type="submit">{editId ? "Update note" : <><Icon name="plus" size={16} />Add note</>}</button>
           {editId && <button type="button" className="outline" onClick={cancelEdit}>Cancel</button>}
         </div>
       </form>
@@ -89,8 +90,8 @@ const Notes = () => {
             <b>{note.title}</b>
             <p>{note.text}</p>
             <div className="row">
-              <button className="outline" onClick={() => editNote(note)}>Edit</button>
-              <button className="outline" onClick={() => deleteNote(note)}>Delete</button>
+              <button className="outline" onClick={() => editNote(note)}><Icon name="edit" size={14} />Edit</button>
+              <button className="danger" onClick={() => deleteNote(note)}><Icon name="trash" size={14} />Delete</button>
             </div>
           </div>
         ))}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { request, todayString } from './api';
+import { request, todayString, formatDate } from './api';
 
 const Upcoming = () => {
 
@@ -39,7 +39,8 @@ const Upcoming = () => {
             {group.list.map((todo) => (
               <li key={todo._id}>
                 <Link to={"/task/" + todo._id} className="task-link">{todo.title}</Link>
-                {todo.dueDate && <small className={group.name === "Overdue" ? "overdue" : "muted"}>{todo.dueDate}</small>}
+                <small className={"tag " + (todo.category || "Personal")}>{todo.category || "Personal"}</small>
+                {todo.dueDate && <small className={group.name === "Overdue" ? "overdue" : "muted"}>{formatDate(todo.dueDate)}</small>}
                 <span className={"badge " + todo.priority}>{todo.priority}</span>
               </li>
             ))}

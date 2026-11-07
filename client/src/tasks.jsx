@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { request, todayString } from './api';
+import { request, todayString, formatDate } from './api';
+import Icon from './icons';
 
 export const CATEGORIES = ["Personal", "Work", "Study", "Shopping", "Other"];
 const PRIORITY_ORDER = { High: 0, Medium: 1, Low: 2 };
@@ -109,13 +110,13 @@ const Tasks = () => {
           <option>High</option>
         </select>
         <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} aria-label="Due date" />
-        <button type="submit">Add</button>
+        <button type="submit"><Icon name="plus" size={16} />Add</button>
       </form>
 
       <div className="toolbar">
         <div className="tabs">
           {["All", "Pending", "Done"].map((f) => (
-            <button key={f} className={filter === f ? "" : "outline"} aria-pressed={filter === f} onClick={() => setFilter(f)}>{f}</button>
+            <button key={f} aria-pressed={filter === f} onClick={() => setFilter(f)}>{f}</button>
           ))}
         </div>
         <input className="grow" type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." aria-label="Search tasks" />
@@ -141,10 +142,10 @@ const Tasks = () => {
           <li key={todo._id}>
             <input type="checkbox" checked={todo.done} onChange={() => toggleTodo(todo)} aria-label={"Mark " + todo.title + " as done"} />
             <Link to={"/task/" + todo._id} className={"task-link " + (todo.done ? "done" : "")}>{todo.title}</Link>
-            <small className="tag">{todo.category || "Personal"}</small>
-            {todo.dueDate && <small className={!todo.done && todo.dueDate < today ? "overdue" : "muted"}>{todo.dueDate}</small>}
+            <small className={"tag " + (todo.category || "Personal")}>{todo.category || "Personal"}</small>
+            {todo.dueDate && <small className={!todo.done && todo.dueDate < today ? "overdue" : "muted"}>{formatDate(todo.dueDate)}</small>}
             <span className={"badge " + todo.priority}>{todo.priority}</span>
-            <button className="outline" onClick={() => deleteTodo(todo._id)} aria-label={"Delete " + todo.title} title="Delete">✕</button>
+            <button className="icon-btn" onClick={() => deleteTodo(todo._id)} aria-label={"Delete " + todo.title} title="Delete"><Icon name="trash" size={16} /></button>
           </li>
         ))}
       </ul>

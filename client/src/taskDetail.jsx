@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { request } from './api';
 import { CATEGORIES } from './tasks';
+import Icon from './icons';
 
 const TaskDetail = () => {
 
@@ -16,9 +17,14 @@ const TaskDetail = () => {
   const [saved, setSaved] = useState("");
 
   useEffect(() => {
+    // ignore the reply if this request is outdated, so a late reply can't wipe out edits already typed
+    let current = true;
+
     request("/get/" + id)
-      .then((data) => setTodo({ title: "", priority: "Medium", dueDate: "", notes: "", category: "Personal", ...data }))
-      .catch((err) => err.status === 404 ? setNotFound(true) : setError(err.message));
+      .then((data) => current && setTodo({ title: "", priority: "Medium", dueDate: "", notes: "", category: "Personal", ...data }))
+      .catch((err) => current && (err.status === 404 ? setNotFound(true) : setError(err.message)));
+
+    return () => { current = false; };
   }, [id]);
 
   const change = (field, value) => {
@@ -66,7 +72,7 @@ const TaskDetail = () => {
 
   return (
     <>
-      <Link to="/tasks" className="back">← Back to tasks</Link>
+      <Link to="/tasks" className="back"><Icon name="back" size={16} />Back to tasks</Link>
       <h1>Edit Task</h1>
       {todo.createdAt && <p className="muted">Created {new Date(todo.createdAt).toLocaleString()}</p>}
 
@@ -74,20 +80,28 @@ const TaskDetail = () => {
         <label htmlFor="title">Title</label>
         <input id="title" value={todo.title} onChange={(e) => change("title", e.target.value)} />
 
-        <label htmlFor="priority">Priority</label>
-        <select id="priority" value={todo.priority} onChange={(e) => change("priority", e.target.value)}>
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
-        </select>
+        <div className="field-row">
+          <div className="field">
+            <label htmlFor="priority">Priority</label>
+            <select id="priority" value={todo.priority} onChange={(e) => change("priority", e.target.value)}>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+            </select>
+          </div>
 
-        <label htmlFor="category">Category</label>
-        <select id="category" value={todo.category} onChange={(e) => change("category", e.target.value)}>
-          {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-        </select>
+          <div className="field">
+            <label htmlFor="category">Category</label>
+            <select id="category" value={todo.category} onChange={(e) => change("category", e.target.value)}>
+              {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+            </select>
+          </div>
 
-        <label htmlFor="dueDate">Due date</label>
-        <input id="dueDate" type="date" value={todo.dueDate} onChange={(e) => change("dueDate", e.target.value)} />
+          <div className="field">
+            <label htmlFor="dueDate">Due date</label>
+            <input id="dueDate" type="date" value={todo.dueDate} onChange={(e) => change("dueDate", e.target.value)} />
+          </div>
+        </div>
 
         <label htmlFor="notes">Notes</label>
         <textarea id="notes" rows="4" value={todo.notes} onChange={(e) => change("notes", e.target.value)} placeholder="Add some notes..." />
@@ -99,7 +113,7 @@ const TaskDetail = () => {
 
         <div className="row">
           <button type="submit">Save</button>
-          <button type="button" className="outline" onClick={deleteTodo}>Delete task</button>
+          <button type="button" className="danger" onClick={deleteTodo}><Icon name="trash" size={16} />Delete task</button>
           <span className="status" role="status">{saved}</span>
         </div>
       </form>
